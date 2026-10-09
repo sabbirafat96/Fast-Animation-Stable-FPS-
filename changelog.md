@@ -2,11 +2,11 @@
 
 All notable changes to **Fast Animation** will be documented here.
 
-Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+``Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).``
 
 ---
 
-## [v1.0.0] — 2026-10-09
+## [v0.1] — 2026-10-09
 
 ### 🎉 Initial Release
 
