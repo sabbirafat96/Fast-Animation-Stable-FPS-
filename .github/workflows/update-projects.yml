@@ -1,0 +1,103 @@
+name: Auto Update Projects
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch repos and update README
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 << 'EOF'
+          import subprocess, json, os, re
+
+          USERNAME = "sabbirafat96"
+
+          COLORS = [
+              ("00BFFF", "1a1a2e"),
+              ("FF6B9D", "2e1a29"),
+              ("4CAF50", "1a2e1a"),
+              ("9D4EDD", "2a1a2e"),
+              ("FF8C42", "2e1a0f"),
+              ("4DB6AC", "1a2e2e"),
+              ("FFB300", "2e2a1a"),
+              ("9575CD", "241a2e"),
+          ]
+
+          EMOJI = ["🍎", "🎮", "⚡", "🔧", "🎨", "🚀", "💎", "🔥"]
+
+          result = subprocess.run(
+              ["gh", "repo", "list", USERNAME, "--limit", "100",
+               "--json", "name,updatedAt"],
+              capture_output=True, text=True, env=os.environ
+          )
+
+          if result.returncode != 0:
+              print("Error:", result.stderr)
+              exit(1)
+
+          repos = json.loads(result.stdout)
+          repos = [r for r in repos if r["name"] != USERNAME]
+          repos.sort(key=lambda r: r.get("updatedAt", ""), reverse=True)
+
+          html = ["", "<table align=\"center\">", "<tr>", ""]
+
+          for i, repo in enumerate(repos):
+              name = repo["name"]
+              emoji = EMOJI[i % len(EMOJI)]
+              bc, bg = COLORS[i % len(COLORS)]
+              name_display = name.replace("-", "--")
+              url = f"https://github.com/{USERNAME}/{name}"
+
+              html.append("<td align=\"center\" width=\"50%\">")
+              html.append(f"<a href=\"{url}\">")
+              html.append(f"<img src=\"https://img.shields.io/badge/{emoji}_{name_display}-{bc}?style=for-the-badge&labelColor={bg}&logoColor=white\">")
+              html.append("</a>")
+              html.append("</td>")
+              html.append("")
+
+              if (i + 1) % 2 == 0 and (i + 1) < len(repos):
+                  html.append("</tr>")
+                  html.append("<tr>")
+                  html.append("")
+
+          html.append("</tr>")
+          html.append("</table>")
+          html.append("")
+
+          projects_html = "\n".join(html)
+
+          with open("README.md", "r", encoding="utf-8") as f:
+              content = f.read()
+
+          pattern = r"<!-- PROJECTS_START -->.*?<!-- PROJECTS_END -->"
+          replacement = f"<!-- PROJECTS_START -->\n\n{projects_html}\n<!-- PROJECTS_END -->"
+          new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+          with open("README.md", "w", encoding="utf-8") as f:
+              f.write(new_content)
+
+          print(f"Updated with {len(repos)} repos")
+          EOF
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: auto-update projects section"
+          git push
