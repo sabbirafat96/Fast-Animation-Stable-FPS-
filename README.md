@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ Fast Animation
+# ⚡ Fast Animation & Stable FPS 💥
 
 **Make your rooted Android buttery smooth — force GPU rendering, kill HW overlays, and boost animation speed for gaming.** 🎮
 
@@ -95,9 +95,9 @@ settings get system peak_refresh_rate         # → 90
        ✓ Tweaks apply on boot
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-   ╔════════════════════════════════════════╗
+   ╔══════════════════════════════════╗
    ║      ✅   INSTALL  SUCCESSFUL   ✅     ║
-   ╚════════════════════════════════════════╝
+   ╚══════════════════════════════════╝
 
    🎨 Module by : Sabbir Senpai
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
