@@ -18,6 +18,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - 🎨 Custom styled flashing UI with ASCII banner
 - ✅ Support for **Magisk v20.4+**, **KernelSU**, **APatch**
 - 🔄 Auto-applies tweaks after boot via `service.sh`
+- 💥
 
 ---
 
