@@ -1,11 +1,10 @@
 <div align="center">
-<img src="banner.png" alt="Banner" width="100%">
 
 # ⚡ Fast Animation & Stable FPS 💥
 
 **Make your rooted Android buttery smooth — force GPU rendering, kill HW overlays, and boost animation speed for gaming.** 🎮
 
-![Version](https://img.shields.io/badge/version-v0.2-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-v0.1-blue?style=for-the-badge)
 ![Author](https://img.shields.io/badge/author-Sabbir%20Senpai-purple?style=for-the-badge)
 ![Platform](https://img.shields.io/badge/Magisk%20%7C%20KernelSU%20%7C%20APatch-supported-red?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
@@ -22,10 +21,9 @@
 | 🚀 | **Force GPU Rendering** | Disable HW overlay via SurfaceFlinger |
 | ⚡ | **0.5× Animation Speed** | Window, transition, animator scaled down |
 | 📱 | **90Hz Refresh Lock** | Smooth scrolling on supported displays |
-| 🧠 | **VM Swappiness Tuned** | Balanced memory pressure |
+| 🔒 | **USB Debugging Disabled** | Auto-disable ADB on every boot |
 | 🎮 | **Gaming Optimized** | Less stutter, faster UI response |
-| 🧹 | **Recent Apps Cleanup** | Clears recents on boot for fresh start |
-| 🛡️ | **Safe & Reversible** | Disable module & reboot to restore |
+| 🛡️ | **Safe & Reversible** | Uninstall module & reboot to restore |
 
 ---
 
@@ -39,7 +37,8 @@
 | `window_animation_scale = 0.5` | 2× faster window animations |
 | `transition_animation_scale = 0.5` | 2× faster transitions |
 | `animator_duration_scale = 0.5` | 2× faster animators |
-| `vm.swappiness = 50` | Balanced memory tuning |
+| `adb_enabled = 0` | USB debugging auto-disabled |
+| `adb_wifi_enabled = 0` | Wireless debugging off |
 | `SurfaceFlinger 1008 i32 1` | HW overlay disabled → GPU render |
 
 > ✅ Applied automatically **after boot completes** via `service.sh`
@@ -90,9 +89,10 @@ settings get global window_animation_scale
 settings get global transition_animation_scale
 settings get global animator_duration_scale
 settings get system peak_refresh_rate
+settings get global adb_enabled
 ```
 
-Expected output: `0.5` · `0.5` · `0.5` · `90`
+Expected output: `0.5` · `0.5` · `0.5` · `90` · `0`
 
 ---
 
@@ -121,8 +121,7 @@ Expected output: `0.5` · `0.5` · `0.5` · `90`
 
 ---
 
-### ❤️ From Bangladesh 🇧🇩
-### ✊ Free Palestine 🇵🇸
+### 🇧🇩 From Bangladesh 🇵🇸 Free Palestine
 
 <br>
 
